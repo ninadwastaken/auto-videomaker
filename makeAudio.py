@@ -16,7 +16,7 @@ def validatePost(path: pathlib.Path):
     try:
         post = json.loads(path.read_text())
         
-        if post.get("text") is None:
+        if type(post.get("text")) != str:
             return False
         return True
     except:
