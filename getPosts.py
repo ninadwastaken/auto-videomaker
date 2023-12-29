@@ -23,6 +23,7 @@ print(res)
 for post in res['data']['children']:
     output_dict={}
     output_dict['subreddit']=post['data']['subreddit']
+    output_dict['title']=post['data']['title']
     output_dict['text']=post['data']['selftext']
     outaa_list.append(output_dict)
 import json
