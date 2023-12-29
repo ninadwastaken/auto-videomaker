@@ -27,4 +27,4 @@ for post in res['data']['children']:
     outaa_list.append(output_dict)
 import json
 file=open("test.json",'w')
-json.dump(outaa_list,file)
+json.dump(outaa_list[5],file)

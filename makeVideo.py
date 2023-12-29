@@ -22,7 +22,7 @@ def downloadBgVid(link):
 def getBg(timestamp, audiofile_path):
 
     vid_length = AudioFileClip(audiofile_path).duration
-    bg_clip = VideoFileClip("bg_vid.mp4").subclip(timestamp, vid_length).without_audio()
+    bg_clip = VideoFileClip("bg.mp4").subclip(timestamp, vid_length).without_audio()
     
     return bg_clip
 
@@ -44,3 +44,5 @@ def makeVideo(link, timestamp, audiofile_path, outPutName):
     video_clip.audio = audio_clip
 
     video_clip.write_videofile(outPutName + ".mp4")
+
+makeVideo("https://www.youtube.com/watch?v=gpXnTSk1YxE", 0, "out.mp3", "tes")
