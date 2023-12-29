@@ -14,4 +14,17 @@ res=requests.post('https://www.reddit.com/api/v1/access_token',auth=auth,data=da
 TOKEN=res.json()['access_token']
 headers={**headers,**{'Authorization':f'bearer {TOKEN}'}}
 #print(headers)
-print(requests.get('https://oauth.reddit.com/api/v1/me',headers=headers).json())
+subreddit=input("Enter subreddit:")
+res=requests.get('https://oauth.reddit.com/r/{subreddit}/hot'.format(subreddit=subreddit),headers=headers).json()
+import pandas as pd
+df=pd.DataFrame()
+outaa_list=[]
+print(res)
+for post in res['data']['children']:
+    output_dict={}
+    output_dict['subreddit']=post['data']['subreddit']
+    output_dict['text']=post['data']['selftext']
+    outaa_list.append(output_dict)
+import json
+file=open("test.json",'w')
+json.dump(outaa_list,file)
