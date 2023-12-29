@@ -1,0 +1,3 @@
+"""
+./getPost <subreddit>
+"""

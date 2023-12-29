@@ -1,0 +1,19 @@
+{
+    "user": "user_who_posted",
+    "text": "POST_TEXT",
+    "img": "base64",
+    "comments": [
+        {
+            "user": "username",
+            "text": "COMMENT_TEXT"
+        },
+        {
+            "user": "username",
+            "text": "COMMENT_TEXT"
+        },
+        {
+            "user": "username",
+            "text": "COMMENT_TEXT"
+        }
+    ]
+}
