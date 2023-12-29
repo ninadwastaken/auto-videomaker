@@ -1,1 +1,1 @@
-print("hekko world")
+print("HELLO BOSS")
