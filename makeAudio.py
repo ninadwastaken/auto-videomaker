@@ -22,6 +22,15 @@ def validatePost(path: pathlib.Path):
     except:
         return False
 
+def createAudio(postText: str, outFileName: str = "out.mp3",rate: int = 125, volume: float = 1.0, voice: int = 0):
+    engine = pyttsx3.init()
+    engine.setProperty('rate', rate)
+    engine.setProperty('volume', volume)
+    engine.setProperty('voice', engine.getProperty('voices')[voice].id)
+
+    engine.save_to_file(postText, outFileName)
+    engine.runAndWait()
+
 def main():
     rate = ezcmdtools.KeyedValue(argument_types.Integer, ("rate", "r"), 125)
     volume = ezcmdtools.KeyedValue(argument_types.Float, ("volume", "vol", "v" ), 1.0)
@@ -48,18 +57,17 @@ def main():
     if not parsing_successful:
         print("ERROR!", *reason.args)
         return
+    
+    outFilePath = pathlib.Path(__file__).parent.joinpath(outFileName.values[0])
+    outFilePath.parent.mkdir(parents=True, exist_ok=True)
 
-
-    post = json.loads(postPath.values[0].read_text())
-
-    engine = pyttsx3.init() # object creation
-    engine.setProperty('rate', rate.value)
-    engine.setProperty('volume',volume.value)
-    engine.setProperty('voice', engine.getProperty('voices')[int(voiceType.value)].id)
-
-    engine.save_to_file(post["text"], outFileName.values[0].as_posix())
-    engine.runAndWait()
-
+    createAudio(
+        json.loads(postPath.values[0].read_text())["text"],
+        outFilePath.as_posix(),
+        rate.value,
+        volume.value,
+        int(voiceType.value),
+    )
 
 if __name__ == '__main__':
     main()
