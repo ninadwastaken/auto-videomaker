@@ -1,8 +1,8 @@
 from pathlib import Path
 
 targetMap = {
-    "media": Path(__file__).parent.parent.joinpath("media"),
-    "output": Path(__file__).parent.parent.joinpath("output"),
+    "media": Path(__file__).parent.joinpath("media"),
+    "output": Path(__file__).parent.joinpath("output"),
 }
 
 def clear(target: str):

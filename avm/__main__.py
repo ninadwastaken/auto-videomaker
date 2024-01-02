@@ -124,9 +124,11 @@ elif mode.values[0] == "download":
     download(link=background_video_download_link.values[0], resolution=background_download_resolution.value)
 
 elif mode.values[0] == "upload":
+    print("TODO! Upload not finished vro")
     pass
 
 elif mode.values[0] == "config":
+    print("TODO: Config not finished vro")
     pass
 
 elif mode.values[0] == "clear":

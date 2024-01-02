@@ -44,14 +44,16 @@ def create(
 ):
     seed(None)
 
-    outdir = Path(__file__).parent.parent.joinpath("output")
+    # TODO: Consider making the shit below more readable plz ;-;
+
+    outdir = Path(__file__).parent.joinpath("output")
     file_start_index_no = len(list(outdir.glob('*')))
     completed_videos = 0
 
     try:
         bg_videos: list[VideoFileClip] = SortedKeyList(
             (VideoFileClip(path.as_posix()).without_audio()
-            for path in Path(__file__).parent.parent.joinpath("media").glob("*")),
+            for path in Path(__file__).parent.joinpath("media").glob("*")),
             key=lambda item: item.duration
         )
     except Exception as e:
@@ -70,7 +72,7 @@ def create(
     audio_engine.setProperty('volume', voice_volume)
     audio_engine.setProperty('voice', audio_engine.getProperty('voices')[voice_type].id)
 
-    tmp_file = Path(__file__).parent.parent.joinpath("tmp", "test.mp3")
+    tmp_file = Path(__file__).parent.joinpath("tmp", "test.mp3")
 
     for post in get_posts(subreddit_name):
         if not is_valid(post, word_count_range):
@@ -78,6 +80,8 @@ def create(
 
         if completed_videos >= max_count:
             break
+
+        print(f"Trying to create video for post titled `{post['title']}`")
 
         output_name = f"{completed_videos + file_start_index_no}.mp4"
 
