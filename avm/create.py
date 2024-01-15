@@ -35,7 +35,32 @@ def is_valid(post: dict, word_count_range: tuple[int, int]):
     # TODO! Check whether the post has already been used or if word count is invalid
     # Consider just using the title of the post
     return True
-
+def sentence_display(str,num_words_per_display,*delimiters)->list[list]:#(str,pos)
+            list_sentences=[]
+            str_add=""
+            for char in str:
+                if char in delimiters:
+                    if len(str_add.split(' '))>num_words_per_display:
+                        num_partitions=len(str_add.split(' '))//num_words_per_display
+                        all_words=str_add.split(' ')
+                        length_subpart=len(all_words)//num_partitions
+                        str_new=""
+                        for i in range(num_partitions-1):
+                            str_new=""
+                            for j in range((i * (length_subpart)),(i+1)*(length_subpart)):
+                                str_new+=' '+ all_words[j]
+                            list_sentences.append(str_new.strip())
+                            str_new=""
+                        for j in range(((num_partitions-1) * (length_subpart)),(len(all_words))):
+                                str_new+=' '+ all_words[j]
+                        list_sentences.append(str_new.strip())
+                    else:
+                        if str_add.strip():
+                            list_sentences.append(str_add)
+                    str_add=""
+                    continue
+                str_add+=char
+            return list_sentences
 def create(
         subreddit_name: str,
         voice_rate: int, voice_type: int, voice_volume: float,
@@ -101,8 +126,7 @@ def create(
         clip_start_timestamp = randrange(0, int(bg_clip.duration - vid_length) + 1)
         bg_clip = bg_clip.subclip(clip_start_timestamp, clip_start_timestamp + vid_length)
 
-        # TODO! Add text to bg clip
-
+        # TODO! Add text to bg clip  
         bg_clip.set_audio(audio_clip).write_videofile(outdir.joinpath(output_name).as_posix(), logger=None)
         print(f"Created video `{output_name}`")
 
